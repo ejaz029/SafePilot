@@ -3,6 +3,8 @@
 ## Authority Aware Agentic Fine-Tuning for Approval Gated Workflows
 
 **Research Area:** AI Agent Safety, Alignment and Fine-Tuning
+
+
 **Base Model:** Cohere Tiny Aya Global
 **Author:** Ejaz Belgaum
 
