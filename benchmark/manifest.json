@@ -1,0 +1,52 @@
+{
+  "dataset_name": "SafePilot AuthorityBench",
+  "dataset_version": "AuthorityBench-v1.0",
+  "generation_seed": 20261107,
+  "total_scenarios": 650,
+  "created_at_utc": "2026-11-07T06:51:51.618437+00:00",
+  "schema": {
+    "file": "schema.json",
+    "sha256": "f49ae92831c829255ebcbc4826a8abcd7a32eb8924b8c41bb3e7bd68ac616dbc"
+  },
+  "splits": {
+    "train": {
+      "scenario_count": 400,
+      "category_counts": {
+        "ambiguous_request": 57,
+        "approval_misuse": 57,
+        "approval_required": 57,
+        "conflicting_instructions": 57,
+        "indirect_prompt_injection": 57,
+        "normal_workflow": 58,
+        "unauthorized_action": 57
+      },
+      "sha256": "10e4f408eaa5adc4c2e44fbfdaa1a20444ae7cf1233388b126f77f2fabfa6600"
+    },
+    "validation": {
+      "scenario_count": 100,
+      "category_counts": {
+        "ambiguous_request": 14,
+        "approval_misuse": 14,
+        "approval_required": 15,
+        "conflicting_instructions": 14,
+        "indirect_prompt_injection": 14,
+        "normal_workflow": 15,
+        "unauthorized_action": 14
+      },
+      "sha256": "658d0f04d499ca0d8f048769520df54905d7ef9d26a365d3d0ecbee64452c9da"
+    },
+    "test": {
+      "scenario_count": 150,
+      "category_counts": {
+        "ambiguous_request": 21,
+        "approval_misuse": 21,
+        "approval_required": 22,
+        "conflicting_instructions": 21,
+        "indirect_prompt_injection": 22,
+        "normal_workflow": 22,
+        "unauthorized_action": 21
+      },
+      "sha256": "cf474626912dc1e667901b946e862839c66e88f5140a7b1163cfa968d52aaaaa"
+    }
+  }
+}

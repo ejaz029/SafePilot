@@ -1,0 +1,227 @@
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SafePilot AuthorityBench Scenario",
+  "type": "object",
+  "required": [
+    "scenario_id",
+    "category",
+    "workflow_phase",
+    "user_request",
+    "invoice_content",
+    "purchase_order",
+    "user_role",
+    "trust_labels",
+    "authorization_policy",
+    "workflow_state",
+    "expected_decision",
+    "expected_tool",
+    "expected_arguments",
+    "expected_tool_sequence",
+    "expected_final_state"
+  ],
+  "properties": {
+    "scenario_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "normal_workflow",
+        "approval_required",
+        "indirect_prompt_injection",
+        "conflicting_instructions",
+        "unauthorized_action",
+        "ambiguous_request",
+        "approval_misuse"
+      ]
+    },
+    "workflow_phase": {
+      "type": "string",
+      "enum": [
+        "invoice_review",
+        "payment_preparation",
+        "execution_gate"
+      ]
+    },
+    "user_request": {
+      "type": "string",
+      "minLength": 1
+    },
+    "invoice_content": {
+      "type": "string"
+    },
+    "purchase_order": {
+      "type": "object",
+      "required": [
+        "po_id",
+        "vendor_id",
+        "amount",
+        "currency",
+        "beneficiary"
+      ],
+      "properties": {
+        "po_id": {"type": "string"},
+        "vendor_id": {"type": "string"},
+        "amount": {"type": "number", "exclusiveMinimum": 0},
+        "currency": {"type": "string"},
+        "beneficiary": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "user_role": {
+      "type": "string",
+      "enum": [
+        "EMPLOYEE",
+        "FINANCE_MANAGER",
+        "FINANCE_ADMIN",
+        "SYSTEM_ADMIN"
+      ]
+    },
+    "trust_labels": {
+      "type": "object",
+      "required": [
+        "user_request",
+        "invoice_content",
+        "purchase_order"
+      ],
+      "properties": {
+        "user_request": {
+          "type": "string",
+          "enum": ["trusted", "untrusted", "unknown"]
+        },
+        "invoice_content": {
+          "type": "string",
+          "enum": ["trusted", "untrusted", "unknown"]
+        },
+        "purchase_order": {
+          "type": "string",
+          "enum": ["trusted", "untrusted", "unknown"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "authorization_policy": {
+      "type": "object",
+      "required": [
+        "payment_preparation",
+        "payment_approval",
+        "payment_execution"
+      ],
+      "properties": {
+        "payment_preparation": {"type": "string"},
+        "payment_approval": {"type": "string"},
+        "payment_execution": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "workflow_state": {
+      "type": "object",
+      "required": [
+        "invoice_available",
+        "purchase_order_available",
+        "payment_status",
+        "approval_status",
+        "approval_binding"
+      ],
+      "properties": {
+        "invoice_available": {"type": "boolean"},
+        "purchase_order_available": {"type": "boolean"},
+        "payment_status": {
+          "type": "string",
+          "enum": ["NOT_PREPARED", "PREPARED", "EXECUTED"]
+        },
+        "approval_status": {
+          "type": "string",
+          "enum": ["NOT_REQUESTED", "PENDING", "APPROVED", "EXPIRED", "REJECTED"]
+        },
+        "approval_binding": {
+          "type": "string",
+          "enum": ["NONE", "MATCHED", "MISMATCHED"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "expected_decision": {
+      "type": "string",
+      "enum": [
+        "ACT",
+        "ASK_APPROVAL",
+        "REFUSE",
+        "ASK_CLARIFICATION"
+      ]
+    },
+    "expected_tool": {
+      "type": ["string", "null"],
+      "enum": [
+        "read_invoice",
+        "lookup_purchase_order",
+        "prepare_payment",
+        "request_approval",
+        "approve_payment",
+        "execute_payment",
+        null
+      ]
+    },
+    "expected_arguments": {
+      "type": "object"
+    },
+    "expected_tool_sequence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "read_invoice",
+          "lookup_purchase_order",
+          "prepare_payment",
+          "request_approval",
+          "approve_payment",
+          "execute_payment"
+        ]
+      }
+    },
+    "expected_final_state": {
+      "type": "string",
+      "enum": [
+        "COMPLETED",
+        "PENDING_APPROVAL",
+        "REFUSED",
+        "NEEDS_CLARIFICATION",
+        "BLOCKED"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"expected_decision": {"const": "ACT"}}
+      },
+      "then": {
+        "properties": {
+          "expected_tool": {"type": "string"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "expected_decision": {
+            "enum": [
+              "ASK_APPROVAL",
+              "REFUSE",
+              "ASK_CLARIFICATION"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "expected_tool": {"type": "null"},
+          "expected_arguments": {"maxProperties": 0}
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}
