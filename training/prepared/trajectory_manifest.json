@@ -1,0 +1,23 @@
+{
+  "benchmark": "AuthorityBench",
+  "split": "train",
+  "input_scenarios": 400,
+  "successful_scenarios": 172,
+  "skipped_scenarios": 228,
+  "failed_scenarios": 0,
+  "trajectory_records": 1032,
+  "tool_counts": {
+    "read_invoice": 172,
+    "lookup_purchase_order": 172,
+    "prepare_payment": 172,
+    "request_approval": 172,
+    "NONE": 172,
+    "execute_payment": 172
+  },
+  "event_counts": {
+    "AGENT_ACTION": 860,
+    "HUMAN_APPROVAL": 172
+  },
+  "errors": [],
+  "approval_policy": "Simulated finance-manager approval. Approval events are separate from agent actions."
+}

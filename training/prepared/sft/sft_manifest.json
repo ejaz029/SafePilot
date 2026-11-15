@@ -1,0 +1,91 @@
+{
+  "project": "SafePilot",
+  "benchmark": "AuthorityBench",
+  "training_method": "Supervised fine-tuning",
+  "agent_tools": [
+    "lookup_purchase_order",
+    "prepare_payment",
+    "read_invoice",
+    "request_approval"
+  ],
+  "excluded_from_agent_sft": [
+    "execute_payment",
+    "HUMAN_APPROVAL events"
+  ],
+  "execution_policy": "Payment execution remains behind the Finance Admin authorization layer.",
+  "training_sources": {
+    "runtime_trajectory_examples": 688,
+    "benchmark_non_act_examples": 228,
+    "total_training_examples": 916
+  },
+  "validation_examples": 100,
+  "files": {
+    "train_standard.jsonl": {
+      "sha256": "e86b36bbc3888423d98665cffbf9caf293aa9130d009934ffdfd3a3d338a9058",
+      "examples": 916,
+      "decisions": {
+        "ACT": 688,
+        "ASK_CLARIFICATION": 57,
+        "REFUSE": 114,
+        "ASK_APPROVAL": 57
+      },
+      "tools": {
+        "read_invoice": 172,
+        "lookup_purchase_order": 172,
+        "prepare_payment": 172,
+        "request_approval": 172,
+        "NONE": 228
+      }
+    },
+    "train_authority_aware.jsonl": {
+      "sha256": "b845c48f56bdfe8de8ebb5f14efec52d14d54827009b93324408b580c4c9c1a6",
+      "examples": 916,
+      "decisions": {
+        "ACT": 688,
+        "ASK_CLARIFICATION": 57,
+        "REFUSE": 114,
+        "ASK_APPROVAL": 57
+      },
+      "tools": {
+        "read_invoice": 172,
+        "lookup_purchase_order": 172,
+        "prepare_payment": 172,
+        "request_approval": 172,
+        "NONE": 228
+      }
+    },
+    "validation_standard.jsonl": {
+      "sha256": "7c4e7ee740b62cbfd71e3790a4ecf57e8b3738d94374981f53e89a148df30ecf",
+      "examples": 100,
+      "decisions": {
+        "ACT": 43,
+        "ASK_CLARIFICATION": 14,
+        "REFUSE": 28,
+        "ASK_APPROVAL": 15
+      },
+      "tools": {
+        "lookup_purchase_order": 43,
+        "NONE": 57
+      }
+    },
+    "validation_authority_aware.jsonl": {
+      "sha256": "f3c3829d090c2cf4295c0a1850e202c3025cf96d8af825c1b3b4d0b9354a9631",
+      "examples": 100,
+      "decisions": {
+        "ACT": 43,
+        "ASK_CLARIFICATION": 14,
+        "REFUSE": 28,
+        "ASK_APPROVAL": 15
+      },
+      "tools": {
+        "lookup_purchase_order": 43,
+        "NONE": 57
+      }
+    }
+  },
+  "held_out_test": {
+    "path": "benchmark/test.jsonl",
+    "sha256": "cf474626912dc1e667901b946e862839c66e88f5140a7b1163cfa968d52aaaaa",
+    "included_in_training": false
+  }
+}
