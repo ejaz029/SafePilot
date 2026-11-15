@@ -161,8 +161,4 @@ Human-in-the-loop evaluation and comparisons across the other Tiny Aya variants 
 
 Further work will focus on improving legitimate task completion without weakening authorization enforcement.
 
-## About
-
-Developed for the **Lexsi Labs AI Safety & Alignment Hackathon – Track 3: Agentic Fine-tuning**.
-
 GitHub: [ejaz029](https://github.com/ejaz029)
